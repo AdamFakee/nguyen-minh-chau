@@ -243,6 +243,112 @@ nav ul{list-style:none;display:flex;gap:4px;align-items:center}
 .tl-item.reveal:nth-child(even){transform:translateX(40px)}
 .tl-item.reveal.in{transform:none}
 
+/* ====== RADIO VĂN HỌC ====== */
+.radio{display:grid;grid-template-columns:minmax(250px,340px) 1fr;gap:clamp(22px,4vw,52px);align-items:center;background:var(--card);border:1px solid #fff;border-radius:26px;box-shadow:var(--shadow);padding:clamp(14px,2.2vw,24px) clamp(14px,2.2vw,24px) clamp(34px,3.6vw,46px);contain:layout paint}
+.rv{position:relative;justify-self:center;width:min(100%,340px);aspect-ratio:9/16;border-radius:24px;overflow:hidden;background:#0b1f36;box-shadow:0 22px 38px -10px rgba(22,56,95,.6),0 8px 16px -4px rgba(47,127,184,.35);isolation:isolate;outline:none;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;transform:translateZ(0)}
+.rv:focus-visible{box-shadow:0 22px 38px -10px rgba(22,56,95,.6),0 0 0 3px rgba(47,127,184,.6)}
+.rv video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#0b1f36;display:block}
+.rv-cover{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;padding:78px 24px 0;text-align:center;color:#fff;overflow:hidden;background:radial-gradient(circle at 50% 38%,rgba(169,211,239,.5),transparent 58%),linear-gradient(165deg,#16385f,#1f5a8c 58%,#3d8ec4);transition:opacity .6s ease,visibility 0s .6s}
+.rv.started .rv-cover{opacity:0;visibility:hidden}
+.rv-cover b{display:block;font-family:var(--script);font-weight:700;font-size:clamp(2.1rem,9vw,2.9rem);line-height:1.1;text-shadow:0 4px 22px rgba(10,30,52,.45)}
+.rv-rings{position:absolute;left:50%;top:50%;width:74px;height:74px;margin:-37px 0 0 -37px}
+.rv-rings i{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);animation:ring 3.6s ease-out infinite}
+.rv.started .rv-rings i{animation-play-state:paused}
+.rv-rings i:nth-child(2){animation-delay:1.2s}.rv-rings i:nth-child(3){animation-delay:2.4s}
+.rv-waves{position:absolute;left:0;bottom:0;width:200%;height:34%;animation:rvWave 11s linear infinite}
+.rv-waves path{fill:rgba(255,255,255,.14)}
+.rv-waves.w2{height:26%;animation-duration:17s;animation-direction:reverse}
+.rv-waves.w2 path{fill:rgba(255,255,255,.2)}
+.rv.started .rv-waves{animation-play-state:paused}
+@keyframes rvWave{to{transform:translateX(-50%)}}
+@keyframes ring{from{transform:scale(1);opacity:.85}to{transform:scale(2.5);opacity:0}}
+.rv-play{position:absolute;left:50%;top:50%;width:74px;height:74px;margin:-37px 0 0 -37px;z-index:5;border:0;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;cursor:pointer;box-shadow:0 10px 30px rgba(8,24,44,.45);transition:transform .3s cubic-bezier(.34,1.56,.64,1),opacity .3s}
+.rv-play svg{width:30px;height:30px;margin-left:4px}
+.rv-play::before,.rv-play::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid rgba(255,255,255,.75);animation:ring 2.4s ease-out infinite;pointer-events:none}
+.rv-play::after{animation-delay:1.2s}
+.rv-play:hover{transform:scale(1.09)}
+.rv.playing .rv-play{opacity:0;pointer-events:none;transform:scale(.8)}
+.rv.playing .rv-play::before,.rv.playing .rv-play::after{animation:none}
+.rv-spin{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;z-index:4;border-radius:50%;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;animation:spin .8s linear infinite;opacity:0;pointer-events:none;transition:opacity .2s}
+.rv.busy .rv-spin{opacity:1}
+.rv:not(.busy) .rv-spin{animation-play-state:paused}
+.rv-chip{position:absolute;top:14px;left:14px;z-index:6;display:flex;align-items:center;gap:8px;padding:8px 12px 8px 10px;border-radius:99px;background:rgba(10,30,52,.55);color:#fff;pointer-events:none}
+
+.rv-dot{width:8px;height:8px;border-radius:50%;background:#a9d3ef;transition:background .3s}
+.rv.playing .rv-dot{background:#f6c94c;box-shadow:0 0 0 0 rgba(246,201,76,.7);animation:dotPulse 1.6s ease-out infinite}
+@keyframes dotPulse{to{box-shadow:0 0 0 8px rgba(246,201,76,0)}}
+.eq{display:inline-flex;align-items:flex-end;gap:2px;height:12px}
+.eq i{display:block;width:3px;height:100%;border-radius:2px;background:currentColor;transform-origin:bottom;transform:scaleY(.3);animation:eq 1s ease-in-out infinite;animation-play-state:paused}
+.eq i:nth-child(2){animation-duration:.8s;animation-delay:-.3s}.eq i:nth-child(3){animation-duration:1.15s;animation-delay:-.6s}.eq i:nth-child(4){animation-duration:.9s;animation-delay:-.1s}
+.rv.playing .eq i{animation-play-state:running}
+@keyframes eq{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+.rv-ui{position:absolute;left:0;right:0;bottom:0;z-index:6;padding:56px 14px 10px;color:#fff;background:linear-gradient(to top,rgba(8,24,44,.86),rgba(8,24,44,.45) 62%,transparent);cursor:default;transition:opacity .35s,transform .35s}
+.rv.playing:not(.ui) .rv-ui{opacity:0;transform:translateY(8px)}
+.rv-chip{transition:opacity .35s}
+.rv.playing:not(.ui) .rv-chip{opacity:0}
+.rv-title{font-family:var(--serif);font-weight:600;font-size:1.08rem;line-height:1.3}
+.rv-bar{--p:0;position:relative;height:20px;margin-top:6px;cursor:pointer;touch-action:none}
+.rv-bar::before,.rv-fill{content:"";position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;border-radius:4px}
+.rv-bar::before{background:rgba(255,255,255,.28)}
+.rv-fill{background:linear-gradient(90deg,#a9d3ef,#fff);transform-origin:left;transform:scaleX(var(--p))}
+.rv-knob{position:absolute;top:50%;left:calc(var(--p)*100%);width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.25)}
+.rv-row{display:flex;align-items:center;gap:4px}
+.rv-btn{width:36px;height:36px;border:0;background:none;color:#fff;border-radius:50%;display:grid;place-items:center;cursor:pointer;transition:background .2s}
+.rv-btn:hover{background:rgba(255,255,255,.18)}
+.rv-btn svg{width:20px;height:20px}
+.rv-time{margin-right:auto;font:500 .72rem var(--sans);font-variant-numeric:tabular-nums;opacity:.9}
+.rv .i-pause,.rv.playing .i-play,.rv .i-off,.rv.muted .i-on{display:none}
+.rv.playing .i-pause,.rv.muted .i-off{display:block}
+.rv-tune{position:absolute;inset:0;z-index:7;pointer-events:none;opacity:0;will-change:opacity;display:grid;place-items:center;overflow:hidden;color:#fff;background:repeating-linear-gradient(0deg,rgba(255,255,255,.09) 0 1px,transparent 1px 4px),linear-gradient(180deg,rgba(22,56,95,.95),rgba(47,127,184,.9))}
+.rv-sweep{position:absolute;top:0;bottom:0;left:0;width:46%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);transform:translateX(-110%);will-change:transform}
+.rv-tune .eq{height:30px;gap:5px}
+.rv-tune .eq i{width:5px}
+.rv.tuning .rv-tune .eq i{animation-play-state:running}
+.rv .rv-bar,.rv .rv-title{display:none}
+.rv .rv-time{visibility:hidden}
+.rv:fullscreen .rv-bar,.rv:fullscreen .rv-title{display:block}
+.rv:fullscreen .rv-time{visibility:visible}
+.rv:-webkit-full-screen .rv-bar,.rv:-webkit-full-screen .rv-title{display:block}
+.rv:-webkit-full-screen .rv-time{visibility:visible}
+.rv:fullscreen{width:100%;height:100%;aspect-ratio:auto;border-radius:0;box-shadow:none}
+.rv:fullscreen video{object-fit:contain}
+.rv:-webkit-full-screen{width:100%;height:100%;aspect-ratio:auto;border-radius:0;box-shadow:none}
+.rv:-webkit-full-screen video{object-fit:contain}
+.rn{min-width:0}
+.rn-top{display:flex;align-items:center;margin-bottom:8px}
+.rn-top small{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--sea);font-weight:600}
+.rn-count{margin-left:auto;font:600 .8rem var(--sans);color:var(--muted);font-variant-numeric:tabular-nums}
+.rn h3{font-family:var(--serif);font-size:clamp(1.5rem,2.6vw,2rem);color:var(--ink);padding-bottom:12px;margin-bottom:12px;border-bottom:2px dotted var(--sky-4)}
+.rn p{font-family:var(--serif);font-size:1.04rem;line-height:1.85;color:#26405b}
+.dial{position:relative;height:46px;margin:22px 0 18px;border-radius:12px;background:rgba(255,255,255,.65);border:1px solid var(--line);overflow:hidden;--p:0;cursor:pointer;touch-action:none}
+.dial::before,.dial::after{content:"";position:absolute;left:12px;right:12px;bottom:0;background-image:repeating-linear-gradient(90deg,rgba(47,127,184,.5) 0 1px,transparent 1px 8px);height:9px}
+.dial::after{height:15px;background-image:repeating-linear-gradient(90deg,rgba(22,56,95,.6) 0 2px,transparent 2px 40px)}
+.dial-fill{position:absolute;left:12px;right:12px;top:0;bottom:0;background:linear-gradient(90deg,rgba(111,176,220,.04),rgba(111,176,220,.32));transform-origin:left;transform:scaleX(var(--p));pointer-events:none}
+.dial-t,.dial-d{position:absolute;top:5px;font:700 .68rem var(--sans);letter-spacing:.08em;color:var(--ink-2);font-variant-numeric:tabular-nums;pointer-events:none}
+.dial-t{left:14px}.dial-d{right:14px;opacity:.7}
+.dial-needle{position:absolute;top:0;bottom:0;left:calc(12px + (100% - 24px)*var(--p));width:2px;margin-left:-1px;background:linear-gradient(#f6c94c,#e29a1f);box-shadow:0 0 10px rgba(246,201,76,.8);pointer-events:none}
+.st-list{display:grid;gap:10px}
+.st{position:relative;display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:12px 16px;border-radius:16px;border:1px solid var(--sky-4);background:rgba(255,255,255,.7);color:var(--ink-2);font:inherit;cursor:pointer;overflow:hidden;isolation:isolate;transition:transform .25s,color .25s,border-color .25s}
+.st::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(135deg,var(--ink-2),var(--sea));opacity:0;transition:opacity .25s}
+.st:hover{transform:translateY(-2px);background:#fff}
+.st.on{color:#fff;border-color:transparent}
+.st.on::before{opacity:1}
+.st-n{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;font:700 .8rem var(--sans);background:rgba(47,127,184,.1);color:var(--sea)}
+.st.on .st-n{background:rgba(255,255,255,.22);color:#fff}
+.st-t{flex:1;min-width:0}
+.st-t b{display:block;font:600 .98rem/1.3 var(--serif)}
+.st-t small{font-size:.74rem;opacity:.75}
+.st-s{flex:none;min-width:22px;text-align:right;font:600 .7rem var(--sans);font-variant-numeric:tabular-nums;opacity:.7}
+.st-s svg{width:16px;height:16px;display:inline-block;vertical-align:middle}
+.st-p{position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--sky-5),var(--sea));transform-origin:left;transform:scaleX(var(--p,0));transition:transform .25s linear,opacity .5s .3s}
+.st.on .st-p{background:linear-gradient(90deg,#fff,#a9d3ef)}
+.st.ready .st-p{opacity:0}
+@media(max-width:860px){
+  .radio{grid-template-columns:1fr;padding:18px 14px;gap:24px;border-radius:20px}
+  .rv{width:min(100%,300px)}
+  .rn p{font-size:.98rem;line-height:1.8}
+}
+
 /* footer */
 footer{margin-top:80px;position:relative;background:linear-gradient(180deg,var(--sky-2),var(--sky-3));text-align:center;padding:60px 0 34px}
 footer .fw{position:absolute;top:-1px;left:0;width:100%;height:60px;transform:rotate(180deg)}
@@ -258,6 +364,12 @@ footer .fw{position:absolute;top:-1px;left:0;width:100%;height:60px;transform:ro
 #toTop:hover{background:var(--sea);transform:translateY(-4px)}
 #toTop svg{width:20px;margin:auto}
 
+@media(min-width:1201px) and (max-width:1500px){
+  nav ul{gap:0}
+  .nav-link{padding:10px 7px;font-size:.68rem;letter-spacing:.02em}
+  .nav-link::after{left:7px;right:7px}
+  .chev{width:10px;height:10px}
+}
 @media(max-width:1200px){
   .brand{display:flex}
   .bar{justify-content:space-between}
@@ -368,6 +480,7 @@ footer .fw{position:absolute;top:-1px;left:0;width:100%;height:60px;transform:ro
 <li class="nav-item has-sub"><a href="#sang-tac" class="nav-link" data-sec="sang-tac">CON ĐƯỜNG SÁNG TÁC<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a><div class="dropdown"><a href="#sang-tac-1" data-tab="sang-tac-1">Sáng tác từ trước 1975</a><a href="#sang-tac-2" data-tab="sang-tac-2">Sáng tác từ sau năm 1975</a></div></li>
 <li class="nav-item has-sub"><a href="#vi-tri" class="nav-link" data-sec="vi-tri">VỊ TRÍ VÀ NHỮNG ĐÓNG GÓP<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a><div class="dropdown"><a href="#vi-tri-1" data-tab="vi-tri-1">Đổi mới ý thức nghệ thuật</a><a href="#vi-tri-2" data-tab="vi-tri-2">Đổi mới cách nhìn và sự khám phá về con người</a><a href="#vi-tri-3" data-tab="vi-tri-3">Những tìm tòi đổi mới trong nghệ thuật tự sự</a></div></li>
 <li class="nav-item has-sub"><a href="#phong-cach" class="nav-link" data-sec="phong-cach">PHONG CÁCH NGHỆ THUẬT<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a><div class="dropdown"><a href="#phong-cach-1" data-tab="phong-cach-1">Tư tưởng nhân bản</a><a href="#phong-cach-2" data-tab="phong-cach-2">Năng lực miêu tả và phân tích tâm lí</a><a href="#phong-cach-3" data-tab="phong-cach-3">Hướng về những vẻ đẹp trong sáng và chất trữ tình</a><a href="#phong-cach-4" data-tab="phong-cach-4">Bút pháp</a></div></li>
+<li class="nav-item"><a href="#radio" class="nav-link" data-sec="radio">RADIO VĂN HỌC</a></li>
 <li class="nav-item"><a href="#nhom" class="nav-link" data-sec="nhom">GIỚI THIỆU NHÓM</a></li>
     </ul></nav>
   </div>
@@ -544,6 +657,50 @@ footer .fw{position:absolute;top:-1px;left:0;width:100%;height:60px;transform:ro
   </div>
 </section>
 
+<!-- ====== RADIO VĂN HỌC ====== -->
+<section class="sec radio-sec" id="radio" data-sec="radio">
+  <div class="wrap">
+    <header class="sec-head reveal"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="3"/><path d="M7 8l10-5"/><circle cx="9" cy="14" r="2.6"/><path d="M15 12.5h3M15 16h3"/></svg></span><div><small>Chuyên mục</small><h2>Radio văn học</h2></div></header>
+    <div class="sec-intro reveal"><p>Những trang văn của Nguyễn Minh Châu được cất lên bằng hình ảnh và âm thanh. Mỗi lần một “đài”: chọn một bản phát bên dưới để thưởng thức — các video được tải sẵn nên phát ngay, không phải chờ.</p></div>
+    <div class="radio reveal">
+      <div class="rv" id="rv" tabindex="0" role="region" aria-label="Trình phát Radio văn học">
+        <video id="rvVid" playsinline preload="auto" controlsList="nodownload"></video>
+        <div class="rv-cover" aria-hidden="true">
+          <b id="cvT">Chiếc thuyền ngoài xa</b>
+          <div class="rv-rings"><i></i><i></i><i></i></div>
+          <svg class="rv-waves" viewBox="0 0 600 60" preserveAspectRatio="none"><path d="M0 30q37.5-24 75 0t75 0 75 0 75 0 75 0 75 0 75 0 75 0V60H0z"/></svg>
+          <svg class="rv-waves w2" viewBox="0 0 600 60" preserveAspectRatio="none"><path d="M0 30q37.5-24 75 0t75 0 75 0 75 0 75 0 75 0 75 0 75 0V60H0z"/></svg>
+        </div>
+        <div class="rv-chip"><span class="rv-dot"></span><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div>
+        <button class="rv-play" id="rvPlay" aria-label="Phát"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></button>
+        <span class="rv-spin" aria-hidden="true"></span>
+        <div class="rv-tune" aria-hidden="true"><i class="rv-sweep"></i><span class="eq"><i></i><i></i><i></i><i></i><i></i></span></div>
+        <div class="rv-ui">
+          <div class="rv-title" id="rvTitle">Chiếc thuyền ngoài xa</div>
+          <div class="rv-bar" id="rvBar" role="slider" aria-label="Tua video" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="rv-fill"></span><span class="rv-knob"></span></div>
+          <div class="rv-row">
+            <button class="rv-btn" id="rvTog" aria-label="Phát / tạm dừng"><svg class="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg></button>
+            <span class="rv-time" id="rvTime">0:00 / 0:00</span>
+            <button class="rv-btn" id="rvMute" aria-label="Bật / tắt tiếng"><svg class="i-on" viewBox="0 0 24 24"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="i-off" viewBox="0 0 24 24"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z" fill="currentColor"/><path d="M16 9.5l5 5M21 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <button class="rv-btn" id="rvFs" aria-label="Toàn màn hình"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="rn">
+        <div class="rn-top"><span class="rn-count" id="rnCount">01 / 04</span></div>
+        <div class="rn-info" id="rnInfo"><h3 id="rnTitle">Chiếc thuyền ngoài xa</h3><p id="rnDesc">Truyện ngắn tiêu biểu trong những tìm tòi đổi mới sau năm 1975, với cái nhìn mới về hiện thực và con người.</p></div>
+        <div class="dial" id="dial" role="slider" aria-label="Tua video" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="dial-fill"></span><span class="dial-t" id="dialT">0:00</span><span class="dial-d" id="dialD">0:00</span><span class="dial-needle"></span></div>
+        <div class="st-list" id="stList">
+          <button class="st on" data-i="0" data-src="assets/video/chiec-thuyen-ngoai-xa.mp4" data-title="Chiếc thuyền ngoài xa" data-sub="Truyện ngắn · 1983" data-desc="Truyện ngắn tiêu biểu trong những tìm tòi đổi mới sau năm 1975, với cái nhìn mới về hiện thực và con người."><span class="st-n">01</span><span class="st-t"><b>Chiếc thuyền ngoài xa</b><small>Truyện ngắn · 1983</small></span><span class="st-s"></span><i class="st-p"></i></button>
+          <button class="st" data-i="1" data-src="assets/video/hoang-hon.mp4" data-title="Hoàng hôn" data-sub="Nguyễn Minh Châu" data-desc="Một khoảng lặng cùng nhà văn Nguyễn Minh Châu — người luôn hướng ngòi bút vào việc khám phá và thể hiện con người."><span class="st-n">02</span><span class="st-t"><b>Hoàng hôn</b><small>Nguyễn Minh Châu</small></span><span class="st-s"></span><i class="st-p"></i></button>
+          <button class="st" data-i="2" data-src="assets/video/mien-chay.mp4" data-title="Miền cháy" data-sub="Tiểu thuyết · 1977" data-desc="Tiểu thuyết xuất bản năm 1977 — câu chuyện của đất nước vừa ra khỏi cuộc chiến tranh, phải đối mặt với bao khó khăn và thách thức."><span class="st-n">03</span><span class="st-t"><b>Miền cháy</b><small>Tiểu thuyết · 1977</small></span><span class="st-s"></span><i class="st-p"></i></button>
+          <button class="st" data-i="3" data-src="assets/video/dau-chan-nguoi-linh.mp4" data-title="Dấu chân người lính" data-sub="Trích tiểu thuyết · 1972" data-desc="Tiểu thuyết xuất bản năm 1972, đưa Nguyễn Minh Châu vào số những cây bút văn xuôi hàng đầu của văn học chống Mĩ."><span class="st-n">04</span><span class="st-t"><b>Dấu chân người lính</b><small>Trích tiểu thuyết · 1972</small></span><span class="st-s"></span><i class="st-p"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ====== GIỚI THIỆU NHÓM ====== -->
 <section class="team-sec" id="nhom" data-sec="nhom">
   <div class="wrap">
@@ -645,6 +802,7 @@ footer .fw{position:absolute;top:-1px;left:0;width:100%;height:60px;transform:ro
   var cv=$('#fx'),cx=cv.getContext('2d'),W,H,bub=[],rip=[],fxPaused=false;
   function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}rs();
   addEventListener('resize',rs,{passive:true});
+  window.__fxPause=function(p){fxPaused=p;if(p)cx.clearRect(0,0,W,H)};
   for(var i=0;i<32;i++)bub.push({x:Math.random()*W,y:Math.random()*H,r:4+Math.random()*15,v:.15+Math.random()*.45,p:Math.random()*6});
 
   (function loop(){
@@ -754,6 +912,193 @@ footer .fw{position:absolute;top:-1px;left:0;width:100%;height:60px;transform:ro
   // mở tab theo hash khi tải trang
   if(location.hash&&document.querySelector('.panel'+location.hash))setTimeout(function(){openTab(location.hash.slice(1),true)},300);
 
+})();
+</script>
+<script>
+/* Radio văn học: tải sẵn video lần lượt (blob), chỉ phát 1 video mỗi lần */
+(function(){
+  var $=function(s,c){return (c||document).querySelector(s)},$$=function(s,c){return [].slice.call((c||document).querySelectorAll(s))};
+  var rv=$('#rv');if(!rv)return;
+  var vid=$('#rvVid'),items=$$('.st'),dial=$('#dial'),dialT=$('#dialT'),dialD=$('#dialD'),bar=$('#rvBar'),timeEl=$('#rvTime'),info=$('#rnInfo');
+  var N=items.length,cur=0,blob=[],ready=[],failed=[],pend=0,ui=0,raf=0,lastSec=-1,scrub=false,limit=N,ioPaused=false;
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var pad=function(n){return (n<10?'0':'')+n};
+  var fmt=function(t){t=Math.max(0,t|0);return (t/60|0)+':'+pad(t%60)};
+  var CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+
+  /* ---- preload tuần tự ---- */
+  var lastT=[];
+  function prog(i,f){
+    f=Math.min(1,f);var n=Date.now();if(f<1&&n-(lastT[i]||0)<200)return;lastT[i]=n;
+    items[i].style.setProperty('--p',f);
+    $('.st-s',items[i]).textContent=Math.round(f*100)+'%';
+  }
+  function done(i){
+    ready[i]=true;items[i].classList.add('ready');items[i].style.setProperty('--p',1);
+    $('.st-s',items[i]).innerHTML=CHECK;
+    if(i===cur&&!vid.getAttribute('src'))setSrc(i);
+  }
+  function load(i){
+    return fetch(items[i].dataset.src).then(function(r){
+      if(!r.ok)throw 0;
+      var total=+r.headers.get('content-length')||0;
+      if(!r.body||!window.ReadableStream)return r.blob();
+      var rd=r.body.getReader(),parts=[],got=0;
+      return (function pump(){return rd.read().then(function(x){
+        if(x.done)return new Blob(parts,{type:'video/mp4'});
+        parts.push(x.value);got+=x.value.length;if(total)prog(i,got/total);
+        return pump();
+      })})();
+    }).then(function(b){blob[i]=URL.createObjectURL(b);done(i)},function(){failed[i]=true});
+  }
+  function preload(){
+    var chain=Promise.resolve();
+    for(var k=0;k<limit;k++)(function(i){chain=chain.then(function(){return ready[i]||failed[i]?0:load(i)})})(k);
+  }
+  function startPreload(){
+    var c=navigator.connection||{},t=c.effectiveType||'';
+    if(c.saveData||/^(slow-)?2g$/.test(t)){limit=0;return}
+    if(t==='3g')limit=1;
+    preload();
+  }
+  function idle(f){window.requestIdleCallback?requestIdleCallback(f,{timeout:2500}):setTimeout(f,1200)}
+  if(document.readyState==='complete')idle(startPreload);else addEventListener('load',function(){idle(startPreload)});
+
+  /* ---- giao diện theo đài ---- */
+  function setSrc(i){vid.src=blob[i]||items[i].dataset.src}
+  /* Optimistic: giao diện đổi ngay khi bấm, video nạp/phát sau */
+  function select(i){
+    var d=items[i].dataset;cur=i;
+    items.forEach(function(x,k){x.classList.toggle('on',k===i)});
+    $('#rvTitle').textContent=$('#rnTitle').textContent=$('#cvT').textContent=d.title;
+    $('#rnDesc').textContent=d.desc;$('#rnCount').textContent=pad(i+1)+' / '+pad(N);
+    if(info.animate)info.animate([{opacity:0,transform:'translateY(22px)'},{opacity:1,transform:'none'}],{duration:600,easing:'cubic-bezier(.2,.8,.3,1)'});
+    bar.style.setProperty('--p',0);dial.style.setProperty('--p',0);timeEl.textContent='0:00 / '+fmt(0);dialT.textContent=dialD.textContent='0:00';lastSec=-1;
+  }
+  function mount(i,keep){
+    rv.classList.remove('playing','busy');if(!keep)rv.classList.remove('started');
+    if(ready[i])setSrc(i);else{vid.removeAttribute('src');vid.load()}
+  }
+  function show(i){select(i);mount(i)}
+  var tuneEl=$('.rv-tune',rv),sweepEl=$('.rv-sweep',rv),tuneAnims=[];
+  function playTune(){
+    if(!tuneEl.animate)return;
+    tuneAnims.forEach(function(a){a.cancel()});
+    rv.classList.add('tuning');
+    var o={duration:900,easing:'ease',fill:'both'};
+    var fade=tuneEl.animate([{opacity:0},{opacity:1,offset:.3},{opacity:1,offset:.62},{opacity:0}],o);
+    var sw=sweepEl.animate([{transform:'translateX(-110%)'},{transform:'translateX(260%)'}],o);
+    tuneAnims=[fade,sw];
+    fade.onfinish=function(){fade.cancel();sw.cancel()};
+    setTimeout(function(){if(!pend)rv.classList.remove('tuning')},950);
+  }
+  function tune(i,go){
+    if(i===cur&&!pend){go?toggle():0;return}
+    ioPaused=false;clearTimeout(pend);vid.pause();
+    select(i);
+    var swap=function(){
+      pend=0;mount(i,go);
+      if(go){if(!ready[i])rv.classList.add('busy');play()}
+      else if(window.__fxPause)__fxPause(false);
+    };
+    if(reduce){swap();return}
+    playTune();
+    pend=setTimeout(swap,300);
+  }
+
+  /* ---- phát / dừng ---- */
+  function play(){
+    if(!vid.getAttribute('src'))setSrc(cur);
+    var p=vid.play();if(p&&p.catch)p.catch(function(){});
+  }
+  function toggle(){if(pend)return;ioPaused=false;vid.paused?play():vid.pause()}
+  function upd(){
+    var d=vid.duration||0,t=vid.currentTime||0;
+    var q=d?t/d:0;bar.style.setProperty('--p',q);dial.style.setProperty('--p',q);
+    var s=t|0;if(s!==lastSec){lastSec=s;timeEl.textContent=fmt(t)+' / '+fmt(d);dialT.textContent=fmt(t);dialD.textContent=fmt(d);bar.setAttribute('aria-valuenow',Math.round(q*100));dial.setAttribute('aria-valuenow',Math.round(q*100))}
+  }
+  function tick(){upd();raf=vid.paused?0:requestAnimationFrame(tick)}
+  vid.addEventListener('play',function(){
+    rv.classList.add('playing');
+    if(window.__fxPause)__fxPause(true);
+    showUI();if(!raf)raf=requestAnimationFrame(tick);
+  });
+  vid.addEventListener('pause',function(){
+    rv.classList.remove('playing');
+    if(window.__fxPause&&!pend)__fxPause(false);
+  });
+  vid.addEventListener('playing',function(){rv.classList.add('started');rv.classList.remove('busy')});
+  vid.addEventListener('waiting',function(){if(!vid.paused)rv.classList.add('busy')});
+  vid.addEventListener('canplay',function(){rv.classList.remove('busy')});
+  vid.addEventListener('loadedmetadata',upd);
+  vid.addEventListener('timeupdate',function(){if(vid.paused)upd()});
+  vid.addEventListener('ended',function(){cur<N-1?tune(cur+1,true):tune(0,false)});
+  vid.addEventListener('error',function(){
+    if(/^blob:/.test(vid.src)&&!vid.dataset.retry){vid.dataset.retry=1;var was=!vid.paused;ready[cur]=false;failed[cur]=true;vid.src=items[cur].dataset.src;vid.load();if(was)play()}
+  });
+  vid.addEventListener('loadstart',function(){delete vid.dataset.retry});
+
+  /* ---- điều khiển ---- */
+  function showUI(){
+    rv.classList.add('ui');clearTimeout(ui);
+    ui=setTimeout(function(){if(!vid.paused&&!scrub)rv.classList.remove('ui')},2400);
+  }
+  rv.addEventListener('pointermove',showUI,{passive:true});
+  rv.addEventListener('focusin',showUI);
+  rv.addEventListener('click',function(e){
+    if(e.target.closest('.rv-ui,.rv-play'))return;
+    toggle();showUI();
+  });
+  $('#rvPlay').addEventListener('click',function(e){e.stopPropagation();toggle()});
+  $('#rvTog').addEventListener('click',function(){toggle();showUI()});
+  $('#rvMute').addEventListener('click',function(){vid.muted=!vid.muted;rv.classList.toggle('muted',vid.muted)});
+  var fs=$('#rvFs'),d=document;
+  if(!(rv.requestFullscreen||rv.webkitRequestFullscreen||vid.webkitEnterFullscreen))fs.style.display='none';
+  fs.addEventListener('click',function(){
+    if(d.fullscreenElement||d.webkitFullscreenElement)(d.exitFullscreen||d.webkitExitFullscreen).call(d);
+    else if(rv.requestFullscreen)rv.requestFullscreen();
+    else if(rv.webkitRequestFullscreen)rv.webkitRequestFullscreen();
+    else if(vid.webkitEnterFullscreen)vid.webkitEnterFullscreen();
+  });
+  function seeker(el){
+    function seek(e){
+      var r=el.getBoundingClientRect(),pad=el===dial?12:0,x=Math.min(1,Math.max(0,(e.clientX-r.left-pad)/(r.width-pad*2)));
+      if(vid.duration){vid.currentTime=x*vid.duration;upd()}
+    }
+    el.addEventListener('pointerdown',function(e){e.stopPropagation();scrub=true;el.setPointerCapture(e.pointerId);seek(e)});
+    el.addEventListener('pointermove',function(e){if(scrub)seek(e)});
+    ['pointerup','pointercancel'].forEach(function(n){el.addEventListener(n,function(){scrub=false})});
+  }
+  seeker(bar);seeker(dial);
+  rv.addEventListener('keydown',function(e){
+    if(e.target.closest('button'))return;
+    var k=e.key;
+    if(k===' '||k==='k'){e.preventDefault();toggle()}
+    else if(k==='ArrowRight'&&vid.duration){e.preventDefault();vid.currentTime=Math.min(vid.duration,vid.currentTime+5);upd()}
+    else if(k==='ArrowLeft'&&vid.duration){e.preventDefault();vid.currentTime=Math.max(0,vid.currentTime-5);upd()}
+    else if(k==='m')$('#rvMute').click();
+    showUI();
+  });
+  items.forEach(function(b,i){b.addEventListener('click',function(){tune(i,true)})});
+
+  /* ---- tiết kiệm tài nguyên ---- */
+  new IntersectionObserver(function(es){
+    if(es[0].isIntersecting){
+      if(ioPaused&&vid.paused){ioPaused=false;var p=vid.play();if(p&&p.catch)p.catch(function(){})}
+    }else if(!vid.paused&&!d.fullscreenElement&&!d.webkitFullscreenElement){ioPaused=true;vid.pause()}
+  },{threshold:.25}).observe(rv);
+  d.addEventListener('visibilitychange',function(){if(d.hidden&&!vid.paused)vid.pause()});
+
+  /* chiều cao khối mô tả cố định = bài dài nhất, tránh giật bố cục khi đổi đài */
+  function fitInfo(){
+    var t=$('#rnTitle'),dsc=$('#rnDesc'),t0=t.textContent,d0=dsc.textContent,m=0;
+    info.style.minHeight='';
+    items.forEach(function(x){t.textContent=x.dataset.title;dsc.textContent=x.dataset.desc;m=Math.max(m,info.offsetHeight)});
+    t.textContent=t0;dsc.textContent=d0;info.style.minHeight=m+'px';
+  }
+  var fitT=0;addEventListener('resize',function(){clearTimeout(fitT);fitT=setTimeout(fitInfo,200)},{passive:true});
+  show(0);fitInfo();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitInfo);
 })();
 </script>
 </body>
